@@ -16,7 +16,6 @@
 </head>
 <body class="text-gray-900">
 
-    <!-- 权限验证层 -->
     <div id="auth-screen" class="fixed inset-0 bg-[#fdfdfd] z-50 flex items-center justify-center">
         <div class="text-center p-8 border border-black max-w-sm w-full">
             <h1 class="text-3xl font-black mb-6">玉山日报</h1>
@@ -25,7 +24,6 @@
         </div>
     </div>
 
-    <!-- 文章详情弹窗 -->
     <div id="article-modal" class="fixed inset-0 z-[100] hidden modal-overlay overflow-y-auto">
         <div class="max-w-3xl mx-auto py-20 px-6">
             <button onclick="closeModal()" class="mb-8 text-sm uppercase tracking-widest underline hover:text-gray-600">关闭阅读</button>
@@ -34,7 +32,6 @@
         </div>
     </div>
 
-    <!-- 主体内容 -->
     <div id="content-wrapper" class="max-w-7xl mx-auto px-6 py-12">
         <div class="mb-12 border-b border-gray-200 pb-6 flex flex-wrap gap-4 items-center">
             <input type="text" id="search-input" placeholder="搜索报纸内容..." onkeyup="searchContent()" class="border-b border-black p-2 flex-grow focus:outline-none text-sm">
@@ -50,7 +47,6 @@
             <div id="ai-result" class="mt-4 text-gray-700 italic text-sm"></div>
         </div>
 
-        <!-- 头部 -->
         <header class="text-center mb-16">
             <h1 class="text-7xl font-black tracking-tight mb-4">玉山日报</h1>
             <div class="w-16 h-[1px] bg-black mx-auto mb-4"></div>
@@ -59,7 +55,6 @@
 
         <main class="grid grid-cols-1 md:grid-cols-12 gap-8" id="main-content">
             
-            <!-- 左侧边栏 -->
             <aside class="md:col-span-3 sidebar-divider pr-8 space-y-12" id="left-sidebar">
                 <h3 class="font-bold border-b border-black pb-2 mb-4 uppercase text-xs tracking-widest">深度速递</h3>
                 <div class="space-y-6">
@@ -75,16 +70,16 @@
                 </div>
             </aside>
             
-            <!-- 中间主板块 -->
-            <article class="md:col-span-6 px-4 cursor-pointer hover:bg-gray-50 p-4 transition-colors rounded-lg" id="main-feature" onclick="openArticle('今日宏观市场分析', '这是今日核心的详细全文内容。在当前全球地缘政治不确定性增加的背景下，宏观市场展现出独特的避险属性。AI 算法模型通过对历史数据进行深度训练，发现资本流向已悄然发生结构性转移。核心观点认为：尽管短期波动剧烈，但长期来看，技术赋能的行业依然具备抗风险能力。我们需要持续关注利率政策及能源供应波动对核心资产的二次影响。全文内容在此处展开...')">
+            <article class="md:col-span-6 px-4" id="main-feature">
+                <!-- ARTICLE_START -->
                 <h3 class="font-bold border-b border-black pb-2 mb-6 uppercase text-xs tracking-widest">今日核心</h3>
                 <h2 class="text-4xl font-bold mb-6">今日宏观市场分析</h2>
                 <div class="space-y-4 text-lg leading-relaxed text-gray-700">
-                    <p>这是主内容区域，AI 将为您生成深度的宏观金融趋势分析报告。点击阅读详细报告内容。</p>
+                    <p>等待 AI 自动获取全球战略情报……</p>
                 </div>
+                <!-- ARTICLE_END -->
             </article>
 
-            <!-- 右侧边栏 -->
             <aside class="md:col-span-3 border-l border-gray-200 pl-8 space-y-12" id="right-sidebar">
                 <h3 class="font-bold border-b border-black pb-2 mb-4 uppercase text-xs tracking-widest">全球视角</h3>
                 <div class="space-y-6">
@@ -101,19 +96,18 @@
             </aside>
         </main>
 
-        <!-- 往期回顾 -->
         <section class="mt-20 pt-12 border-t border-gray-200">
             <h3 class="font-bold mb-8 uppercase text-xs tracking-widest">往期回顾</h3>
             <div class="flex flex-col gap-6" id="archive-section">
-                <div class="border-b pb-4 cursor-pointer hover:bg-gray-50 transition" onclick="openArticle('2026/07/01 算法经济学专题', '全文：深入分析探讨算法在现代经济中的决策权重，及其对传统资本市场的不可逆影响。')">
+                <div class="border-b pb-4 cursor-pointer hover:bg-gray-50 transition" onclick="openArticle('2026/07/01 算法经济学专题', '深入分析探讨算法在现代经济中的决策权重，及其对传统资本市场的不可逆影响。')">
                     <h4 class="font-bold text-lg">2026/07/01 算法经济学专题</h4>
                     <p class="text-sm text-gray-600 mt-1">探讨算法在现代经济中的决策权重，分析其对传统资本市场的影响。</p>
                 </div>
-                <div class="border-b pb-4 cursor-pointer hover:bg-gray-50 transition" onclick="openArticle('2026/06/30 全球能源储备报告', '全文：解析当前地缘政治背景下的能源战略部署，关注未来三个季度的供应波动风险。')">
+                <div class="border-b pb-4 cursor-pointer hover:bg-gray-50 transition" onclick="openArticle('2026/06/30 全球能源储备报告', '解析当前地缘政治背景下的能源战略部署，关注未来三个季度的供应波动风险。')">
                     <h4 class="font-bold text-lg">2026/06/30 全球能源储备报告</h4>
                     <p class="text-sm text-gray-600 mt-1">解析当前地缘政治背景下的能源战略部署，关注未来三个季度的供应波动。</p>
                 </div>
-                <div class="border-b pb-4 cursor-pointer hover:bg-gray-50 transition" onclick="openArticle('2026/06/29 数字货币的合规化路径', '全文：针对数字资产监管框架的深度复盘，探讨机构入场后的市场流动性特征演变。')">
+                <div class="border-b pb-4 cursor-pointer hover:bg-gray-50 transition" onclick="openArticle('2026/06/29 数字货币的合规化路径', '针对数字资产监管框架的深度复盘，探讨机构入场后的市场流动性特征演变。')">
                     <h4 class="font-bold text-lg">2026/06/29 数字货币的合规化路径</h4>
                     <p class="text-sm text-gray-600 mt-1">针对数字资产监管框架的深度复盘，探讨机构入场后的市场流动性特征。</p>
                 </div>
