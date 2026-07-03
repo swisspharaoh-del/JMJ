@@ -23,6 +23,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add index.html
-          # 如果 index.html 没有变动，防止报错
           git commit -m "Auto-update daily newspaper" || exit 0
           git push
