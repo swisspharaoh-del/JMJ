@@ -59,9 +59,9 @@
     <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-100/90 backdrop-blur-md px-4">
         <div class="max-w-md w-full bg-[#fcfbf9] border border-stone-300 p-8 shadow-2xl rounded-lg text-center relative overflow-hidden">
             <div class="absolute top-0 inset-x-0 h-1 bg-stone-900"></div>
-            <div class="font-title text-2xl font-medium tracking-[0.2em] text-stone-950 mb-2">玉山日报</div>
-            <div class="text-[9px] uppercase tracking-[0.15em] text-stone-400 mb-8 border-b border-stone-200 pb-4 font-serif">INTERNAL SYSTEM</div>
-            <p class="text-stone-600 text-xs mb-6 leading-relaxed font-serif">站点存放玉山日报人工智能研报</p>
+            <div class="font-title text-2xl font-medium tracking-[0.2em] text-stone-950 mb-2">YUSHAN ARCHIVE</div>
+            <div class="text-[9px] uppercase tracking-[0.15em] text-stone-400 mb-8 border-b border-stone-200 pb-4 font-serif">INTERNAL ARCHIVE SYSTEM</div>
+            <p class="text-stone-600 text-xs mb-6 leading-relaxed font-serif">此站点存放玉山日报深度纪实文献。请在下方输入学术查阅凭证以开启阅读权限。</p>
             
             <div class="space-y-4">
                 <input type="password" id="password-input" placeholder="输入凭证密码..." 
@@ -106,7 +106,10 @@
                 <!-- 右翼：学术安全级别 -->
                 <div class="md:col-span-3 text-right hidden md:flex flex-col justify-center border-l border-stone-300 h-14 pl-4 font-serif">
                     <span class="text-[9px] uppercase tracking-widest text-stone-400 font-semibold font-title">SECURITY CLASSIFICATION</span>
-                    <span class="text-stone-800 text-xs font-medium tracking-wide">INTERNAL ACCESS ONLY</span>
+                    <div class="flex items-center justify-end gap-1.5">
+                        <span class="text-stone-800 text-xs font-medium tracking-wide">INTERNAL ACCESS ONLY</span>
+                        <button onclick="logoutArchive()" class="text-[9px] text-stone-500 hover:text-red-700 hover:border-red-300 border border-stone-300 px-1 rounded transition duration-150" title="锁定并返回密码界面">锁定</button>
+                    </div>
                     <span class="text-[9px] text-stone-400 mt-0.5 tracking-wider font-title">ARCHIVE VOL. 01</span>
                 </div>
             </div>
@@ -329,10 +332,10 @@
         let currentUtterance = null;
         let isPlayingTTS = false;
 
-        // 智能安全封装 localStorage 防止在沙箱或禁用了 storage 的预览 iframe 中导致全局 JS 崩溃
+        // 智能安全封装 sessionStorage 防止在沙箱中导致崩溃，同时改为会话级别存储（关闭浏览器标签即自动锁定）
         function safeGetStorage(key) {
             try {
-                return localStorage.getItem(key);
+                return sessionStorage.getItem(key);
             } catch (e) {
                 console.warn("Storage access is denied in sandbox mode.");
                 return null;
@@ -341,10 +344,18 @@
 
         function safeSetStorage(key, value) {
             try {
-                localStorage.setItem(key, value);
+                sessionStorage.setItem(key, value);
             } catch (e) {
                 console.warn("Storage write is denied in sandbox mode.");
             }
+        }
+
+        // 手动锁定档案函数
+        function logoutArchive() {
+            try {
+                sessionStorage.removeItem('yushan_authenticated_2026');
+            } catch (e) {}
+            location.reload();
         }
 
         // 强壮算法：支持高强度 secure 环境下使用内置 crypto，同时也完美向后兼容沙盒/非HTTPS下的本地预览
