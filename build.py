@@ -43,9 +43,9 @@ def build():
     side_posts = posts[1:]
 
     main_html = f'''
-    <span class="text-[10px] uppercase tracking-widest bg-black text-white px-2 py-1">{main_post["category"]}</span>
-    <h2 class="text-4xl font-bold mt-2 mb-6">{main_post["title"]}</h2>
-    <div class="text-lg leading-relaxed text-gray-700">{main_post["body_html"]}</div>
+    <span class="text-[10px] uppercase tracking-widest bg-[#fcfbf9] text-stone-600 px-2.5 py-1 rounded font-serif border border-stone-300 inline-block mb-3">{main_post["category"]}</span>
+    <h2 class="font-serif text-4xl font-extrabold mt-2 mb-6 text-stone-900 leading-tight">{main_post["title"]}</h2>
+    <div class="text-lg leading-relaxed text-stone-700 font-serif space-y-4">{main_post["body_html"]}</div>
     '''
     
     def gen_card(post, is_archive=False):
@@ -54,12 +54,12 @@ def build():
         body_json = json.dumps(post["body_html"])
         
         text_size = "text-lg" if is_archive else "text-sm"
-        padding = "border-b pb-4" if is_archive else "p-2"
+        padding = "border-b pb-6" if is_archive else "p-4 bg-[#fcfbf9] border border-stone-200 hover:border-stone-400 rounded-lg shadow-sm"
         
-        return f'''<div class="cursor-pointer hover:bg-gray-50 {padding} transition" onclick="openArticle({title_json}, {body_json})">
-                     <span class="text-[10px] uppercase tracking-widest bg-gray-100 px-1.5 py-0.5 text-gray-500 mb-1 inline-block">{post["category"]}</span>
-                     <h4 class="font-bold {text_size} mb-1">{post["title"]}</h4>
-                     <p class="text-xs text-gray-500">{post["preview"]}</p>
+        return f'''<div class="cursor-pointer hover:bg-stone-50/50 {padding} transition-all duration-200 group" onclick="openArticle({title_json}, {body_json})">
+                     <span class="text-[10px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">{post["category"]}</span>
+                     <h4 class="font-serif font-bold {text_size} text-stone-900 group-hover:text-stone-700 transition mb-2">{post["title"]}</h4>
+                     <p class="text-xs text-stone-500 leading-relaxed line-clamp-3">{post["preview"]}</p>
                    </div>'''
 
     left_html = ""
