@@ -1,0 +1,22 @@
+name: Auto Update Daily
+on:
+push:
+paths:
+- '_posts/'
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Set up Python
+uses: actions/setup-python@v2
+with: {python-version: '3.x'}
+- name: Run Build Script
+run: python build.py
+- name: Commit changes
+run: |
+git config --local user.email "action@github.com"
+git config --local user.name "GitHub Action"
+git add index.html
+git commit -m "Auto-update daily newspaper" || exit 0
+git push
