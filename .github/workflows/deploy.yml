@@ -1,22 +1,28 @@
 name: Auto Update Daily
 on:
-push:
-paths:
-- '_posts/'
+  push:
+    paths:
+      - '_posts/**'
+      - 'build.py'
+
 jobs:
-build:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v2
-- name: Set up Python
-uses: actions/setup-python@v2
-with: {python-version: '3.x'}
-- name: Run Build Script
-run: python build.py
-- name: Commit changes
-run: |
-git config --local user.email "action@github.com"
-git config --local user.name "GitHub Action"
-git add index.html
-git commit -m "Auto-update daily newspaper" || exit 0
-git push
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Run Build Script
+        run: python build.py
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          # 如果 index.html 没有变动，防止报错
+          git commit -m "Auto-update daily newspaper" || exit 0
+          git push
