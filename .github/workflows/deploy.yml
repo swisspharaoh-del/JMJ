@@ -1,27 +1,32 @@
-name: Auto Update Daily
-on:
-  push:
-    paths:
-      - '_posts/**'
-      - 'build.py'
+  - name: Set up Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: '3.x'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-      - name: Run Build Script
-        run: python build.py
-      - name: Commit and Push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add index.html
-          git commit -m "Auto-update daily newspaper" || exit 0
-          git push
+  # STREAMING_CHUNK: Running python injection script...
+  - name: Generate static HTML
+    run: |
+      python build.py
+
+  # STREAMING_CHUNK: Syncing compiled file back to repository safely...
+  # [skip ci] 标记用于告诉 GitHub 不要为此自动推送再次运行 Action，完美避免死循环
+  - name: Commit compiled HTML back to repository
+    run: |
+      git config --local user.email "actions@github.com"
+      git config --local user.name "github-actions[bot]"
+      git add index.html
+      git commit -m "auto: compile articles to index.html [skip ci]" || exit 0
+      git push
+
+  # STREAMING_CHUNK: Uploading build artifact and deploying to Pages CDN...
+  - name: Setup Pages
+    uses: actions/configure-pages@v5
+
+  - name: Upload Artifact
+    uses: actions/upload-pages-artifact@v3
+    with:
+      path: '.'
+
+  - name: Deploy to GitHub Pages
+    id: deployment
+    uses: actions/deploy-pages@v4
