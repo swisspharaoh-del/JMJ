@@ -3,22 +3,10 @@
     with:
       python-version: '3.x'
 
-  # STREAMING_CHUNK: Running python injection script...
   - name: Generate static HTML
     run: |
       python build.py
 
-  # STREAMING_CHUNK: Syncing compiled file back to repository safely...
-  # [skip ci] 标记用于告诉 GitHub 不要为此自动推送再次运行 Action，完美避免死循环
-  - name: Commit compiled HTML back to repository
-    run: |
-      git config --local user.email "actions@github.com"
-      git config --local user.name "github-actions[bot]"
-      git add index.html
-      git commit -m "auto: compile articles to index.html [skip ci]" || exit 0
-      git push
-
-  # STREAMING_CHUNK: Uploading build artifact and deploying to Pages CDN...
   - name: Setup Pages
     uses: actions/configure-pages@v5
 
