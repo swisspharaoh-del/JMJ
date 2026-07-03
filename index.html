@@ -10,7 +10,7 @@
         body { font-family: 'Merriweather', serif; background-color: #fdfdfd; }
         h1, h2, h3, .masthead { font-family: 'Playfair Display', serif; }
         .sidebar-divider { border-right: 1px solid #e5e7eb; }
-        .modal-overlay { background: rgba(255, 255, 255, 0.98); }
+        #content-wrapper { display: none; }
     </style>
 </head>
 <body class="text-gray-900">
@@ -23,7 +23,8 @@
         </div>
     </div>
 
-    <div id="article-modal" class="fixed inset-0 z-[100] hidden modal-overlay overflow-y-auto">
+    <!-- 模态阅读窗 -->
+    <div id="article-modal" class="fixed inset-0 z-[100] hidden bg-white overflow-y-auto">
         <div class="max-w-3xl mx-auto py-20 px-6">
             <button onclick="closeModal()" class="mb-8 text-sm uppercase tracking-widest underline hover:text-gray-600">关闭阅读</button>
             <h2 id="modal-title" class="text-5xl font-black mb-8 leading-tight"></h2>
@@ -31,7 +32,7 @@
         </div>
     </div>
 
-    <div id="content-wrapper" class="max-w-7xl mx-auto px-6 py-12" style="display:none;">
+    <div id="content-wrapper" class="max-w-7xl mx-auto px-6 py-12">
         <header class="text-center mb-16">
             <h1 class="text-7xl font-black tracking-tight mb-4">玉山日报</h1>
             <div class="w-16 h-[1px] bg-black mx-auto mb-4"></div>
@@ -39,88 +40,54 @@
         </header>
 
         <main class="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <aside class="md:col-span-3 sidebar-divider pr-8 space-y-12" id="left-sidebar">
+            <!-- 左侧边栏 -->
+            <aside class="md:col-span-3 sidebar-divider pr-8 space-y-12">
                 <h3 class="font-bold border-b border-black pb-2 mb-4 uppercase text-xs tracking-widest">深度速递</h3>
-                <div id="left-sidebar-content" class="space-y-6"></div>
+                <div class="space-y-6" id="left-sidebar-content">
+                    <!-- BUILD_MARKER_LEFT_START -->
+                    <!-- 自动化内容 -->
+                    <!-- BUILD_MARKER_LEFT_END -->
+                </div>
             </aside>
             
-            <article class="md:col-span-6 px-4" id="main-feature">
+            <!-- 中间主内容 -->
+            <article class="md:col-span-6 px-4">
                 <h3 class="font-bold border-b border-black pb-2 mb-6 uppercase text-xs tracking-widest">今日核心</h3>
-                <div id="main-feature-content" class="space-y-4 text-lg leading-relaxed text-gray-700">加载中...</div>
+                <div id="main-feature-content">
+                    <!-- BUILD_MARKER_MAIN_START -->
+                    <!-- 自动化内容 -->
+                    <!-- BUILD_MARKER_MAIN_END -->
+                </div>
             </article>
 
-            <aside class="md:col-span-3 border-l border-gray-200 pl-8 space-y-12" id="right-sidebar">
+            <!-- 右侧边栏 -->
+            <aside class="md:col-span-3 border-l border-gray-200 pl-8 space-y-12">
                 <h3 class="font-bold border-b border-black pb-2 mb-4 uppercase text-xs tracking-widest">全球视角</h3>
-                <div id="right-sidebar-content" class="space-y-6"></div>
+                <div class="space-y-6" id="right-sidebar-content">
+                    <!-- BUILD_MARKER_RIGHT_START -->
+                    <!-- 自动化内容 -->
+                    <!-- BUILD_MARKER_RIGHT_END -->
+                </div>
             </aside>
         </main>
 
+        <!-- 底部往期回顾 -->
         <section class="mt-20 pt-12 border-t border-gray-200">
             <h3 class="font-bold mb-8 uppercase text-xs tracking-widest">往期回顾</h3>
             <div class="flex flex-col gap-6" id="archive-section">
-                <!-- 动态填充 -->
+                <!-- BUILD_MARKER_ARCHIVE_START -->
+                <!-- 自动化内容 -->
+                <!-- BUILD_MARKER_ARCHIVE_END -->
             </div>
         </section>
     </div>
 
     <script>
-        const MY_SECRET = "123456"; 
-
-        // 页面初始化：加载数据
-        window.onload = async () => {
-            try {
-                // 模拟数据加载，或者从 articles.json 读取
-                const response = await fetch('articles.json');
-                const articles = await response.json();
-                
-                // 渲染侧边栏和归档
-                renderArticles(articles);
-            } catch (e) {
-                console.warn("未找到 articles.json，使用本地演示数据");
-                // 如果没有 JSON 文件，这里放一些默认内容防止页面空白
-            }
-        };
-
-        function renderArticles(articles) {
-            const archiveSection = document.getElementById('archive-section');
-            archiveSection.innerHTML = '';
-            
-            articles.forEach(art => {
-                const div = document.createElement('div');
-                div.className = "border-b pb-4 cursor-pointer hover:bg-gray-50 transition";
-                div.onclick = () => openArticle(art.title, art.content);
-                div.innerHTML = `<h4 class="font-bold text-lg">${art.title}</h4>
-                                 <p class="text-sm text-gray-600 mt-1">${art.content.substring(0, 60)}...</p>`;
-                archiveSection.appendChild(div);
-            });
-            
-            // 默认展示第一篇文章在核心位置
-            if(articles.length > 0) {
-                document.getElementById('main-feature-content').innerHTML = `
-                    <h2 class="text-4xl font-bold mb-6">${articles[0].title}</h2>
-                    <p>${articles[0].content.substring(0, 200)}...</p>
-                `;
-            }
-        }
-
-        function checkPassword() {
-            if (document.getElementById('password-input').value === MY_SECRET) {
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('content-wrapper').style.display = 'block';
-            } else {
-                alert("密码错误");
-            }
-        }
-
-        function openArticle(title, content) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-content').innerText = content;
-            document.getElementById('article-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('article-modal').classList.add('hidden');
-        }
+        const PASSWORD_HASH = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
+        async function sha256(m){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(m)); return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''); }
+        async function checkPassword() { if (await sha256(document.getElementById('password-input').value) === PASSWORD_HASH) { document.getElementById('auth-screen').style.display = 'none'; document.getElementById('content-wrapper').style.display = 'block'; } else { alert("密码错误"); } }
+        function openArticle(t, c) { document.getElementById('modal-title').innerText = t; document.getElementById('modal-content').innerText = c; document.getElementById('article-modal').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        function closeModal() { document.getElementById('article-modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
     </script>
 </body>
 </html>
