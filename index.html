@@ -1,22 +1,18 @@
-<!-- STREAMING_CHUNK: Setting up index.html master template and dependencies... -->
-```html:完整复古版玉山日报:index.html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Jade Mountain Journal - 时代纪实与深度观察</title>
-    <!-- 引入 Tailwind CSS 渲染引擎 -->
+    <!-- 引入 Tailwind CSS 强力渲染引擎 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Playfair Display & EB Garamond & Noto Serif SC 学术字库 -->
+    <!-- 引入全球顶级学术/人文大刊专用的字库组合 -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- 引入 Markdown 渲染引擎 Marked.js -->
+    <!-- 引入高阶 Markdown 渲染引擎 Marked.js & 图表渲染引擎 Mermaid.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- 引入 图表绘图渲染引擎 Mermaid.js -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
-    <!-- STREAMING_CHUNK: Defining Tailwind theme configuration and core styles... -->
     <script>
         tailwind.config = {
             theme: {
@@ -29,18 +25,18 @@
                 }
             }
         }
-        // 初始化 Mermaid 渲染器（中性优雅主题，不自动加载）
+        // 初始化 Mermaid 中性学术风格主题
         mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
     </script>
     <style>
-        /* 经典报纸微黄、纤维质感背景 */
+        /* 经典报纸微黄纤维质感背景 */
         body {
             background-color: #fcfbf9;
             background-image: radial-gradient(#f4f1eb 1px, transparent 0), radial-gradient(#f4f1eb 1px, transparent 0);
             background-size: 8px 8px;
             background-position: 0 0, 4px 4px;
         }
-        /* 定制古典学术风格精细滚动条 */
+        /* 定制古典风格精细滚动条 */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -55,7 +51,7 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #bfae96;
         }
-        /* 学术三线表格排版风格增强 */
+        /* 学术三线表排版风格增强 */
         .markdown-body table {
             width: 100%;
             border-collapse: collapse;
@@ -83,11 +79,15 @@
             font-style: italic;
             margin: 1.5rem 0;
         }
+        .premium-text-rendering {
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     </style>
 </head>
-<body class="font-sans text-stone-800 antialiased min-h-screen flex flex-col">
+<body class="font-sans text-stone-800 antialiased min-h-screen flex flex-col premium-text-rendering">
 
-    <!-- STREAMING_CHUNK: Rendering cryptographic secure authentication interface... -->
     <!-- 密码保护界面 -->
     <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-100/90 backdrop-blur-md px-4">
         <div class="max-w-md w-full bg-[#fcfbf9] border border-stone-300 p-8 shadow-2xl rounded-lg text-center relative overflow-hidden">
@@ -109,7 +109,6 @@
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Rendering main digital journal container... -->
     <!-- 主体内容容器 -->
     <div id="content-wrapper" class="hidden flex-1 flex flex-col">
         <div class="h-1 bg-stone-900"></div>
@@ -144,7 +143,6 @@
             <div class="border-b border-stone-200 pb-2"></div>
         </header>
 
-        <!-- STREAMING_CHUNK: Generating categories and navigation filters... -->
         <!-- 导航分类栏 & 检索面板 -->
         <section class="max-w-7xl mx-auto w-full px-4 py-2 border-b border-stone-200">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 py-1.5">
@@ -174,8 +172,7 @@
             </div>
         </section>
 
-        <!-- STREAMING_CHUNK: Designing classic three-column newspaper layout grid... -->
-        <!-- 报刊黄金内容排版区 -->
+        <!-- 报纸内容排版区 -->
         <main class="max-w-7xl mx-auto w-full px-4 py-8 flex-1">
             <div id="empty-state" class="hidden text-center py-20 border border-dashed border-stone-300 rounded-lg font-serif">
                 <div class="text-xl text-stone-600 mb-2">未检索到任何学术纪实档案</div>
@@ -185,7 +182,7 @@
                 </button>
             </div>
 
-            <!-- 横向古典三段布局（左3 专栏 | 中6 黄金主页 | 右3 专栏） -->
+            <!-- 横向古典三段布局 -->
             <div id="newspaper-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
                 <!-- 左侧专栏 -->
@@ -193,14 +190,14 @@
                     <div class="border-b lg:border-b-0 pb-6 lg:pb-0 pr-0 lg:pr-6 lg:border-r border-stone-200 h-full font-serif">
                         <h3 class="text-xs uppercase tracking-[0.15em] text-stone-400 mb-4 border-b pb-2 font-semibold font-title">COLUMNS · PART A</h3>
                         <div id="left-column-wrapper" class="space-y-6 flex flex-col">
-                            <!-- 由渲染引擎动态载入 -->
+                            <!-- 动态载入 -->
                         </div>
                     </div>
                 </section>
 
-                <!-- 中轴核心焦点 -->
+                <!-- 中轴核心黄金头条 -->
                 <section class="lg:col-span-6 flex flex-col justify-between order-1 lg:order-2" id="main-article-wrapper">
-                    <!-- 由渲染引擎动态载入 -->
+                    <!-- 动态载入 -->
                 </section>
 
                 <!-- 右侧专栏 -->
@@ -208,7 +205,7 @@
                     <div class="h-full pl-0 lg:pl-6 font-serif">
                         <h3 class="text-xs uppercase tracking-[0.15em] text-stone-400 mb-4 border-b pb-2 font-semibold font-title">COLUMNS · PART B</h3>
                         <div id="right-column-wrapper" class="space-y-6 flex flex-col">
-                            <!-- 由渲染引擎动态载入 -->
+                            <!-- 动态载入 -->
                         </div>
                     </div>
                 </section>
@@ -221,7 +218,7 @@
                     <span class="text-[9px] uppercase tracking-[0.15em] text-stone-400 font-semibold font-title">PAST EDITIONS</span>
                 </div>
                 <div id="archive-wrapper" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-serif">
-                    <!-- 由渲染引擎动态载入 -->
+                    <!-- 动态载入 -->
                 </div>
             </section>
         </main>
@@ -234,7 +231,6 @@
         </footer>
     </div>
 
-    <!-- STREAMING_CHUNK: Designing article reading viewport and control panels... -->
     <!-- 沉浸式学术阅读视窗 -->
     <div id="article-modal" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
@@ -288,28 +284,43 @@
                     
                     <!-- Markdown 文章核心渲染区域 -->
                     <div id="modal-content" class="text-base text-stone-800 leading-relaxed space-y-6 max-h-[50vh] overflow-y-auto pr-2 markdown-body">
-                        <!-- 动态内容渲染 -->
+                        <!-- 动态内容 -->
                     </div>
                 </article>
             </div>
         </div>
     </div>
 
-    <!-- STREAMING_CHUNK: Implementing dynamic Javascript data-rendering engine... -->
-    <!-- 全新数据自适应引擎 -->
+    <!-- 前端核心控制中心 -->
     <script>
-        // 学术安全查阅密码哈希值
         const PASSWORD_HASH = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
         
         /* BUILD_MARKER_DATA_START */
-        // 数据仓储插槽：python编译脚本构建时，会自动将所有的markdown文章无损编译成JSON塞入此处。
-        // 下面为预览展示数据，部署运行时会被您的真实文档一秒顶替
+        // 数据仓储插槽：本地预览时的预加载展示数据，在 GitHub 上编译时会被您的真实文章一秒无损替代
         const RAW_POSTS = [
           {
             "id": 1,
-            "title": "图表与排版示范指南",
+            "title": "玉山金融沙盘：关于信贷周期的深度观察",
+            "category": "金融",
+            "body": "# 玉山金融沙盘：关于信贷周期的深度观察\n\n在过去的周期演变中，信用扩张与收缩构成了金融市场的底层脉动。本期深度观察将深入解析玉山当前的资本流动状态，研判信贷杠杆的收缩临界点。\n\n## 一、信用流向与核心观测指标\n\n| 观测季度 | 核心资产流动性 | 信用违约率 | 杠杆健康评级 |\n| :--- | :---: | :---: | :--- |\n| **2026 Q1** | 极度充沛 | 0.12% | 🟢 AAA (稳健) |\n| **2026 Q2** | 边际收紧 | 0.24% | 🟡 AA (中性) |\n| **2026 Q3** | 主动防守 | 0.45% | 🔴 A- (谨慎) |\n\n## 二、资金流动的生命周期图\n\n下面是系统自动为您渲染的资金流动生命周期图：\n\n```mermaid\ngraph TD\n    A[中央银行公开市场操作] -->|注入流动性| B[大型国有银行]\n    B -->|同业拆借| C[中小商业银行]\n    C -->|信贷投放| D[实体高新技术企业]\n    D -->|创造社会价值与就业| E[玉山经济繁荣生态]\n    C -->|抵押放贷| F[房地产及传统重资产]\n    F -->|杠杆堆积| G{系统性风险评估}\n    G -->|蓝灯安全| E\n    G -->|红灯预警| H[主动降杠杆防御]\n```"
+          },
+          {
+            "id": 2,
+            "title": "政治局势研判：权力平衡与未来演变",
+            "category": "政治",
+            "body": "# 政治局势研判：权力平衡与未来演变\n\n随着地缘政治格局的重新洗牌，玉山周边势力范围的权力均势正面临前所未有的考验。多边协作机制的弱化正加速传统势力范围的瓦解，各方在经济安全与科技主权领域的博弈已进入白热化阶段。"
+          },
+          {
+            "id": 3,
+            "title": "当代文化流变：传统与现代的碰撞",
             "category": "文化",
-            "body": "# 欢迎查阅玉山日报排版系统\n\n本系统已深度整合 **Marked.js** 与 **Mermaid.js**。现在可以直接在您的文章中键入学术表格与动态图表。\n\n## 一、学术三线表格示范\n\n| 观测季度 | 核心资产流动性 | 信用违约率 | 杠杆评级 |\n| :--- | :---: | :---: | :--- |\n| **2026 Q1** | 极度充沛 | 0.12% | 🟢 AAA (稳健) |\n| **2026 Q2** | 边际收紧 | 0.24% | 🟡 AA (中性) |\n| **2026 Q3** | 主动防守 | 0.45% | 🔴 A- (谨慎) |\n\n## 二、Mermaid 动态流向图示范\n\n```mermaid\ngraph TD\n    A[中央银行公开市场操作] -->|注入流动性| B[大型国有银行]\n    B -->|同业拆借| C[中小商业银行]\n    C -->|信贷投放| D[实体高新技术企业]\n```"
+            "body": "# 当代文化流变：传统与现代的碰撞\n\n在数字化浪潮的席卷下，玉山传统人文符号正经历着一轮波澜壮阔的重构与新生。通过对城市空间、民俗礼仪和学术共同体交往仪式的微观考察，我们得以窥见一种新型文化自觉的诞生。"
+          },
+          {
+            "id": 4,
+            "title": "玉山史志：地理脉络与人文精神起源",
+            "category": "地理",
+            "body": "# 玉山史志：地理脉络与人文精神起源\n\n自古以来，玉山之天险与沃野便交织塑造了其独特的文明肌理。从远古石器时代的定居遗址，到中古封建时期的驿道网络，玉山的每一处地标都承载着厚重的历史记忆。"
           }
         ];
         /* BUILD_MARKER_DATA_END */
@@ -320,7 +331,6 @@
         let currentUtterance = null;
         let isPlayingTTS = false;
 
-        // 智能安全封装 sessionStorage 避免沙盒崩溃
         function safeGetStorage(key) {
             try { return sessionStorage.getItem(key); } catch (e) { return null; }
         }
@@ -332,7 +342,6 @@
             location.reload();
         }
 
-        // SHA-256 安全密码哈希验证
         async function sha256(m) {
             if (window.crypto && window.crypto.subtle) {
                 try {
@@ -352,7 +361,7 @@
                 grantAccess();
             } else {
                 const err = document.getElementById('error-message');
-                err.innerText = "查阅凭证错误，请重试（预览推荐：123456）。";
+                err.innerText = "查阅凭证错误，请重试（默认凭证：123456）。";
                 err.classList.remove('hidden');
             }
         }
@@ -363,7 +372,6 @@
             applyFiltering();
         }
 
-        // STREAMING_CHUNK: Filtering and search dataset processing...
         function handleSearch(val) {
             currentSearchQuery = val.trim().toLowerCase();
             const clearBtn = document.getElementById('search-clear-btn');
@@ -402,7 +410,6 @@
             selectCategory('全部');
         }
 
-        // 核心动力：数据过滤与报纸动态流式排布引擎
         function applyFiltering() {
             const filtered = RAW_POSTS.filter(post => {
                 const matchesCategory = (currentFilterCategory === "全部" || post.category === currentFilterCategory);
@@ -412,11 +419,9 @@
                 );
                 return matchesCategory && matchesSearch;
             });
-
             renderNewspaper(filtered);
         }
 
-        // 提取纯文本预览，去除 Markdown 特殊标记
         function getPreviewText(md) {
             let plain = md.replace(/#+\s+/g, '')
                           .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
@@ -428,15 +433,12 @@
             return plain.length > 150 ? plain.substring(0, 150) + "..." : plain;
         }
 
-        // 预防 XSS
         function escapeHtml(string) {
             return String(string).replace(/[&<>"'`=\/]/g, function (s) {
                 return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;', '=': '&#x3D;' }[s];
             });
         }
 
-        // STREAMING_CHUNK: Dynamically writing elements to page columns...
-        // 动态渲染报刊
         function renderNewspaper(posts) {
             const grid = document.getElementById('newspaper-grid');
             const emptyState = document.getElementById('empty-state');
@@ -453,7 +455,7 @@
             archiveSection.classList.remove('hidden');
             emptyState.classList.add('hidden');
 
-            // 1. 渲染中间黄金主焦点文章
+            // 1. 渲染中间黄金主头条
             const mainArticle = posts[0];
             const mainWrapper = document.getElementById('main-article-wrapper');
             mainWrapper.innerHTML = `
@@ -469,7 +471,7 @@
                 </div>
             `;
 
-            // 2. 动态分配其余的文章到左侧专栏、右侧专栏、以及底部的往期归档
+            // 2. 动态分流排版：左专栏、右专栏及往期归档
             const leftWrapper = document.getElementById('left-column-wrapper');
             const rightWrapper = document.getElementById('right-column-wrapper');
             const archiveWrapper = document.getElementById('archive-wrapper');
@@ -492,10 +494,10 @@
                     </div>
                 `;
 
-                if (leftCount < 3) {
+                if (leftCount < 2) {
                     leftWrapper.innerHTML += cardHtml;
                     leftCount++;
-                } else if (rightCount < 3) {
+                } else if (rightCount < 2) {
                     rightWrapper.innerHTML += cardHtml;
                     rightCount++;
                 } else {
@@ -510,15 +512,14 @@
                 }
             });
 
-            if (remaining.length <= 6) {
+            if (remaining.length <= 4) {
                 archiveSection.classList.add('hidden');
             } else {
                 archiveSection.classList.remove('hidden');
             }
         }
 
-        // STREAMING_CHUNK: Opening article and parsing Markdown / Mermaid...
-        // 唤起并编译沉浸式学术文献阅读窗
+        // 打开沉浸式阅读视窗
         function viewArticle(id) {
             stopTTS();
             const post = RAW_POSTS.find(p => p.id === id);
@@ -532,11 +533,11 @@
             modalCategory.innerText = post.category;
             modalTitle.innerText = post.title;
 
-            // 1. 使用 Marked.js 将 Markdown 编译为富文本 HTML
+            // 1. Marked.js 解析 Markdown
             let htmlContent = marked.parse(post.body);
             modalContent.innerHTML = htmlContent;
 
-            // 2. 深度捕捉 Markdown 中的 mermaid 代码图表块，渲染流程图
+            // 2. 捕获并拦截 Markdown 中的 Mermaid 模块并进行节点变换
             const codeBlocks = modalContent.querySelectorAll('pre code.language-mermaid');
             codeBlocks.forEach((block, index) => {
                 const rawDiagram = block.textContent;
@@ -547,11 +548,11 @@
                 block.parentElement.replaceWith(diagramDiv);
             });
 
-            // 3. 异步启动 Mermaid 动态排版引擎
+            // 3. 驱动 Mermaid 渲染
             try {
                 mermaid.run();
             } catch (e) {
-                console.warn("Mermaid dynamic parsing is pending loaded or has syntax layout issue: ", e);
+                console.warn("Mermaid is rendering...", e);
             }
 
             modal.classList.remove('hidden');
@@ -574,11 +575,10 @@
             modalContent.style.lineHeight = `${baseFontSize * 1.75}px`;
         }
 
-        // STREAMING_CHUNK: Running speech synthesis (TTS) player controller...
         // AI 雅音伴读核心语音引擎
         function toggleTTS() {
             if (!('speechSynthesis' in window)) {
-                alert("您当前的设备暂不支持学术级语音伴读。建议使用 Edge 浏览器体验高保真音质。");
+                alert("您当前的设备暂不支持学术级语音伴读。建议使用 Edge 浏览器体验高保真自然人声。");
                 return;
             }
 
@@ -621,7 +621,7 @@
             currentUtterance.rate = parseFloat(rateSelect.value) || 1.0;
 
             const voices = window.speechSynthesis.getVoices();
-            // 自动检索现代浏览器中的微软云神经网络自然声音（Edge Online 或 Apple Siri Premium）
+            // 强力捕捉高品质神经网络语音
             let selectedVoice = voices.find(v => v.lang.includes('zh') && (
                 v.name.includes('Natural') || 
                 v.name.includes('Xiaoxiao') || 
@@ -686,11 +686,6 @@
             } else {
                 document.getElementById('auth-screen').style.display = 'flex';
             }
-        }
-    </script>
-</body>
-</html>
-
         }
     </script>
 </body>
