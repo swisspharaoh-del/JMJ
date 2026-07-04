@@ -28,6 +28,7 @@
         // 初始化 Mermaid 中性学术风格主题
         mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
     </script>
+    
     <style>
         /* 经典报纸微黄纤维质感背景 */
         body {
@@ -118,10 +119,10 @@
             <div class="border-t border-stone-200 my-1"></div>
             
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 py-5 items-center">
-                <div class="md:col-span-3 text-left hidden md:flex flex-col justify-center border-r border-stone-300 h-14 pr-4 font-serif">
+                <div class="md:col-span-3 text-left hidden md:flex flex-col justify-center border-r border-stone-300 h-20 pr-4 font-serif">
                     <span class="text-[9px] uppercase tracking-widest text-stone-400 font-semibold font-title">COLLECTION ARCHIVE</span>
                     <span class="text-stone-800 text-xs font-medium tracking-wide">Yushan Library System</span>
-                    <span class="text-[9px] text-stone-400 mt-0.5 tracking-wider font-title">ESTABLISHED 2026</span>
+                    <span class="text-stone-600 text-[10px] tracking-wide italic">ESTABLISHED 2026</span>
                 </div>
 
                 <div class="md:col-span-6 text-center flex flex-col items-center justify-center">
@@ -130,7 +131,7 @@
                     </h1>
                 </div>
 
-                <div class="md:col-span-3 text-right hidden md:flex flex-col justify-center border-l border-stone-300 h-14 pl-4 font-serif">
+                <div class="md:col-span-3 text-right hidden md:flex flex-col justify-center border-l border-stone-300 h-20 pl-4 font-serif">
                     <span class="text-[9px] uppercase tracking-widest text-stone-400 font-semibold font-title">SECURITY CLASSIFICATION</span>
                     <div class="flex items-center justify-end gap-1.5">
                         <span class="text-stone-800 text-xs font-medium tracking-wide">INTERNAL ACCESS ONLY</span>
@@ -182,10 +183,10 @@
                 </button>
             </div>
 
-            <!-- 横向古典三段布局 -->
-            <div id="newspaper-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- ============================== 三段式之 1: 顶置三栏核心网格 ============================== -->
+            <div id="newspaper-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
                 
-                <!-- 左侧专栏 -->
+                <!-- 左侧专栏 (Part A) -->
                 <section class="lg:col-span-3 order-2 lg:order-1">
                     <div class="border-b lg:border-b-0 pb-6 lg:pb-0 pr-0 lg:pr-6 lg:border-r border-stone-200 h-full font-serif">
                         <h3 class="text-xs uppercase tracking-[0.15em] text-stone-400 mb-4 border-b pb-2 font-semibold font-title">COLUMNS · PART A</h3>
@@ -200,7 +201,7 @@
                     <!-- 动态载入 -->
                 </section>
 
-                <!-- 右侧专栏 -->
+                <!-- 右侧专栏 (Part B) -->
                 <section class="lg:col-span-3 order-3 lg:order-3">
                     <div class="h-full pl-0 lg:pl-6 font-serif">
                         <h3 class="text-xs uppercase tracking-[0.15em] text-stone-400 mb-4 border-b pb-2 font-semibold font-title">COLUMNS · PART B</h3>
@@ -211,14 +212,34 @@
                 </section>
             </div>
 
-            <!-- 往期大版块 -->
-            <section class="mt-16 pt-8 border-t border-stone-200" id="archive-section">
+            <!-- ============================== 三段式之 2: 大左两小右网格 ============================== -->
+            <section id="grid-a-section" class="py-10 border-t border-stone-200 mb-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8" id="grid-a-container">
+                    <!-- 动态载入 -->
+                </div>
+            </section>
+
+            <!-- ============================== 三段式之 3: 两小左大右网格 ============================== -->
+            <section id="grid-b-section" class="py-10 border-t border-stone-200 mb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8" id="grid-b-container">
+                    <!-- 动态载入 -->
+                </div>
+            </section>
+
+            <!-- ============================== 往期粹编: 移至底部作为独立分隔区并配备翻页功能 ============================== -->
+            <section class="py-10 border-t border-stone-200 mb-10" id="archive-section">
                 <div class="flex items-center justify-between mb-8 border-b border-stone-300 pb-2">
-                    <h3 class="font-serif text-2xl font-bold text-stone-900 tracking-wide">往期归档</h3>
+                    <h3 class="font-serif text-2xl font-bold text-stone-900 tracking-wide">往期粹编</h3>
                     <span class="text-[9px] uppercase tracking-[0.15em] text-stone-400 font-semibold font-title">PAST EDITIONS</span>
                 </div>
+                <!-- 往期精美学术卡片容器 -->
                 <div id="archive-wrapper" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-serif">
-                    <!-- 动态载入 -->
+                    <!-- 动态载入 index(1) 轻盈款卡片 -->
+                </div>
+                
+                <!-- 学术风格精修翻页控制器 -->
+                <div id="archive-pagination" class="flex justify-center items-center gap-2 mt-10 pt-6 border-t border-stone-200 font-serif">
+                    <!-- 动态生成翻页控件 -->
                 </div>
             </section>
         </main>
@@ -236,7 +257,7 @@
         <div class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
         
         <div class="flex min-h-screen items-center justify-center p-4">
-            <div class="relative max-w-3xl w-full bg-[#fcfbf9] border border-stone-950 p-6 md:p-10 shadow-2xl rounded-lg overflow-hidden transform transition-all font-serif animate-[fadeIn_0.2s_ease-out]">
+            <div class="relative max-w-3xl w-full bg-[#fcfbf9] border border-stone-950 p-6 md:p-10 shadow-2xl rounded-lg overflow-hidden transform transition-all font-serif">
                 <!-- 控制面板 -->
                 <div class="flex items-center justify-between border-b border-stone-200 pb-4 mb-4">
                     <div class="flex items-center gap-2">
@@ -244,11 +265,7 @@
                         <button onclick="changeFontSize(-2)" class="px-2 py-0.5 border border-stone-300 rounded text-xs hover:bg-stone-100 text-stone-700 transition">A-</button>
                         <button onclick="changeFontSize(2)" class="px-2 py-0.5 border border-stone-300 rounded text-xs hover:bg-stone-100 text-stone-700 transition">A+</button>
                     </div>
-                    <button onclick="closeModal()" class="text-stone-400 hover:text-stone-950 transition p-1">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                    <button onclick="closeModal()" class="text-stone-400 hover:text-stone-950 transition p-1 text-xl leading-none">&times;</button>
                 </div>
 
                 <article class="prose max-w-none">
@@ -271,15 +288,6 @@
                             <div class="font-medium text-stone-800 tracking-wide">玉山雅音伴读 · AI Audio Reader</div>
                             <div id="tts-status" class="text-[10px] text-stone-400 mt-0.5">点击播放，开启沉浸式听报体验（首推 Microsoft Edge 浏览器）</div>
                         </div>
-                        <div class="flex items-center gap-1 border-l border-stone-200 pl-3 shrink-0">
-                            <span class="text-[10px] text-stone-400">语速:</span>
-                            <select id="tts-rate" onchange="updateTTSRate()" class="bg-transparent border-none outline-none font-medium text-stone-700 cursor-pointer text-xs">
-                                <option value="0.8">0.8x</option>
-                                <option value="1.0" selected>1.0x</option>
-                                <option value="1.2">1.2x</option>
-                                <option value="1.5">1.5x</option>
-                            </select>
-                        </div>
                     </div>
                     
                     <!-- Markdown 文章核心渲染区域 -->
@@ -296,7 +304,7 @@
         const PASSWORD_HASH = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
         
         /* BUILD_MARKER_DATA_START */
-        // 数据仓储插槽：本地预览时的预加载展示数据，在 GitHub 上编译时会被您的真实文章一秒无损替代
+        // 数据仓储插槽：预先加载 18 篇高学术深度示例文章，完美填满所有布局后让“往期粹编”触发翻页器
         const RAW_POSTS = [
           {
             "id": 1,
@@ -321,15 +329,115 @@
             "title": "玉山史志：地理脉络与人文精神起源",
             "category": "地理",
             "body": "# 玉山史志：地理脉络与人文精神起源\n\n自古以来，玉山之天险与沃野便交织塑造了其独特的文明肌理。从远古石器时代的定居遗址，到中古封建时期的驿道网络，玉山的每一处地标都承载着厚重的历史记忆。"
+          },
+          {
+            "id": 5,
+            "title": "数智时代的宗族网络与社会信任度重构",
+            "category": "宗教",
+            "body": "# 数智时代的宗族网络与社会信任度重构\n\n从田野调查到复杂社会动力网络模型，分析现代宗族文化如何在社交媒介影响下构建多中心的自发治理秩序。在世俗化与数字流变之下，古典神明仪轨正化作新型社会资本纽带。"
+          },
+          {
+            "id": 6,
+            "title": "边缘与中心：地缘战略格局下的玉山地平线",
+            "category": "政治",
+            "body": "# 边缘与中心：地缘战略格局下的玉山地平线\n\n本研究探讨边地贸易政策的流变对于区域关税壁垒的影响。在多极化深化的背景下，地缘博弈不仅局限于重兵防卫的战略支点，更深度下沉到日常的供应链微小血管之中。"
+          },
+          {
+            "id": 7,
+            "title": "儒家心学在东亚商业伦理中的现代转型",
+            "category": "文化",
+            "body": "# 儒家心学在东亚商业伦理中的现代转型\n\n格物致知与现代公司治理机制的完美交响。通过挖掘阳明心学“知行合一”的本土哲学底蕴，为当代知识型经济的发展及企业社会责任框架的革新，勾勒出全新的道统路径。"
+          },
+          {
+            "id": 8,
+            "title": "资产负债表衰退防范：玉山逆周期调控研究",
+            "category": "金融",
+            "body": "# 资产负债表衰退防范：玉山逆周期调控研究\n\n结合经典凯恩斯模型和新供给主义经济学框架，沙盘推演不同广义财政乘数在地方流动性挤压事件中的实证绩效。本研究旨在为后续的量化宽松边界决策，树立精确的安全缓冲哨岗。"
+          },
+          {
+            "id": 9,
+            "title": "中古驿道考：玉山经济带的历史地理空间网络",
+            "category": "地理",
+            "body": "# 中古驿道考：玉山经济带的历史地理空间网络\n\n运用数字人文地理信息系统（GIS），三维重构中古玉山至东海府驿路体系的宏大图景，探讨交通节点的迁徙如何诱发古典商埠与运河码头的生命周期转换。"
+          },
+          {
+            "id": 10,
+            "title": "科技主权与算法治理：现代政治契约的数字延伸",
+            "category": "政治",
+            "body": "# 科技主权与算法治理：现代政治契约的数字延伸\n\n解析主权实体如何面对黑箱模型带来的权力穿透。当平台和协议开始主导价值分配，现代治理体系亟需将其理论边界延伸并重塑至可验证的共识契约代码层。"
+          },
+          {
+            "id": 11,
+            "title": "玉山方志：道统传承与书院讲学之风考",
+            "category": "文化",
+            "body": "# 玉山方志：道统传承与书院讲学之风考\n\n本篇旨在爬梳宋元明三代文献，探寻玉山书院学者群体在理学流变中的关键思想坐标。书院的薪火相传不仅培育了数代学术精粹，亦构建出玉山知识阶层独有的风骨传统。"
+          },
+          {
+            "id": 12,
+            "title": "信用违约互换与系统性流动性挤兑的沙盘模拟",
+            "category": "金融",
+            "body": "# 信用违约互换与系统性流动性挤兑的沙盘模拟\n\n分析在衍生品密集穿透的市场环境中，单点危机如何跨市场链式传导。通过动态图网络仿真算法，直观展示风险因子的爆发路径与金融防火墙在极端承压环境下的实战边界。"
+          },
+          {
+            "id": 13,
+            "title": "天人合一：玉山宗教仪轨中的生态哲学智慧",
+            "category": "宗教",
+            "body": "# 天人合一：玉山宗教仪轨中的生态哲学智慧\n\n研究先民在岁时祭祀、山川神往活动中，所蕴含并自发演化的朴素环保意识。通过将古典堪舆之学与现代流域生态保育对照，探索古老天人世界观对当代可持续发展的启发。"
+          },
+          {
+            "id": 14,
+            "title": "河流治理与早期帝国动员：玉山水利社会学实证",
+            "category": "地理",
+            "body": "# 河流治理与早期帝国动员：玉山水利社会学实证\n\n水权分配一直是政治社会演进的核心动力之一。本篇基于多份珍贵出土竹简及明清拓本，深度勾勒玉山流域的水坝纠纷、渠规订立及其如何促进帝国基层政治机构的演化成长。"
+          },
+          {
+            "id": 15,
+            "title": "重商主义的遗产：玉山对外贸易协定的边际效应",
+            "category": "金融",
+            "body": "# 重商主义的遗产：玉山对外贸易协定的边际效应\n\n从边际收益率与非关税摩擦成本两个层级，解构现有特惠自贸协定的实证运行情况。在区域保护抬头之时，探讨如何通过数智口岸提速，化解地缘摩擦造成的贸易负面漏损。"
+          },
+          {
+            "id": 16,
+            "title": "现代都市空间异化与人文主义归宿的反思",
+            "category": "文化",
+            "body": "# 现代都市空间异化与人文主义归宿的反思\n\n钢铁森林对社区人际温情的原子化解构。本文呼吁通过复兴玉山传统“坊市合一”、“微型学术角”的空间规划哲学，为人文主义和共同体心灵交互寻找一片精神绿洲。"
+          },
+          {
+            "id": 17,
+            "title": "非物质文化遗产流变：玉山手作刻板印刷术数字化",
+            "category": "文化",
+            "body": "# 非物质文化遗产流变：玉山手作刻板印刷术数字化\n\n本研究旨在将古老雕版、活字套印的压力感应与墨迹扩散参数，通过深度神经网络算法进行精密数字化建模，旨在元宇宙空间中1:1完美再现宣纸、徽墨与梨木雕版交互的微观物理肌理。"
+          },
+          {
+            "id": 18,
+            "title": "地缘博弈新变局：稀缺矿产资源的地缘政治学",
+            "category": "政治",
+            "body": "# 地缘博弈新变局：稀缺矿产资源的地缘政治学\n\n稀土及核心特种矿产因其无可替代的技术附加值，正迅速成为各大强权博弈的最核心筹码。本报告从全球供需分布和战略储备体系，深析玉山应有的双轨保供和外围合纵安全网。"
           }
         ];
         /* BUILD_MARKER_DATA_END */
 
+        // 占位副刊文章模板（当用户本地无大量文章时，保证排版不塌陷）
+        const AD_TEMPLATES = [
+            { id: "mock-1", title: "玉山學術副刊 · 誠徵大作", category: "文化", body: "本報长期徵求哲學、金融、社會學及數智人文前沿文獻。來稿一經採用，即登頭版。" },
+            { id: "mock-2", title: "古之學者必有師，師者所以傳道受業解惑也", category: "文化", body: "學問之道無他，求其放心而已。玉山學堂每日播發先賢哲思，與讀者共勉。" },
+            { id: "mock-3", title: "讀書不求甚解，每有會意，便欣然忘食", category: "文化", body: "不為名利所累，唯求心靈與書中真意共鸣。今日讀報，您「會意」了吗？" },
+            { id: "mock-4", title: "數智人文：當古老竹簡遇上現代網絡", category: "文化", body: "探索大型語言模型與古典文獻學之融合，重構古代思想演變。" },
+            { id: "mock-5", title: "格物致知，修齊治平", category: "文化", body: "大學之道，在明明德，在親民，在止於至善。" },
+            { id: "mock-6", title: "中西哲學交匯之思想邊界", category: "文化", body: "剖析先秦諸子心性之學與近代西方現象學本體論之異同。" },
+            { id: "mock-7", title: "玉山講壇 · 跨學科前沿沙龍", category: "地理", body: "探索地理資訊系統与社會空間演變的深層耦合。" }
+        ];
+
+        // 全局控制状态
         let currentFilterCategory = "全部";
         let currentSearchQuery = "";
         let baseFontSize = 16; 
         let currentUtterance = null;
         let isPlayingTTS = false;
+        
+        // 往期粹编翻页核心控制状态
+        let archiveCurrentPage = 1;
+        const ARCHIVE_PAGE_SIZE = 6; // 往期超过6个自动执行分页
 
         function safeGetStorage(key) {
             try { return sessionStorage.getItem(key); } catch (e) { return null; }
@@ -380,6 +488,8 @@
             } else {
                 clearBtn.classList.add('hidden');
             }
+            // 每次检索改变需重置翻页为第一页
+            archiveCurrentPage = 1;
             applyFiltering();
         }
 
@@ -387,6 +497,7 @@
             document.getElementById('search-input').value = "";
             currentSearchQuery = "";
             document.getElementById('search-clear-btn').classList.add('hidden');
+            archiveCurrentPage = 1;
             applyFiltering();
         }
 
@@ -402,6 +513,7 @@
                     tab.classList.add('bg-stone-100', 'text-stone-700', 'hover:bg-stone-200/70');
                 }
             });
+            archiveCurrentPage = 1;
             applyFiltering();
         }
 
@@ -430,7 +542,7 @@
                           .replace(/`([^`]+)`/g, '$1')
                           .replace(/\|/g, ' ')
                           .trim();
-            return plain.length > 150 ? plain.substring(0, 150) + "..." : plain;
+            return plain.length > 140 ? plain.substring(0, 140) + "..." : plain;
         }
 
         function escapeHtml(string) {
@@ -439,90 +551,217 @@
             });
         }
 
+        function getPostOrPlaceholder(posts, index) {
+            if (posts && posts[index]) return { post: posts[index], isPlaceholder: false };
+            const tpl = AD_TEMPLATES[index % AD_TEMPLATES.length];
+            return { post: { id: tpl.id, title: tpl.title, category: tpl.category, body: `# ${tpl.title}\n\n這是一篇玉山日報副刊佔位。當您在 _posts 库裡發布了新的文章後，此佔位將被自動完美替代。` }, isPlaceholder: true };
+        }
+
         function renderNewspaper(posts) {
             const grid = document.getElementById('newspaper-grid');
             const emptyState = document.getElementById('empty-state');
+            const gridASection = document.getElementById('grid-a-section');
+            const gridBSection = document.getElementById('grid-b-section');
             const archiveSection = document.getElementById('archive-section');
+            const isFiltered = (currentFilterCategory !== "全部" || currentSearchQuery !== "");
 
             if (posts.length === 0) {
                 grid.classList.add('hidden');
+                gridASection.classList.add('hidden');
+                gridBSection.classList.add('hidden');
                 archiveSection.classList.add('hidden');
                 emptyState.classList.remove('hidden');
                 return;
             }
 
             grid.classList.remove('hidden');
-            archiveSection.classList.remove('hidden');
             emptyState.classList.add('hidden');
 
-            // 1. 渲染中间黄金主头条
-            const mainArticle = posts[0];
-            const mainWrapper = document.getElementById('main-article-wrapper');
-            mainWrapper.innerHTML = `
-                <div class="border-b lg:border-b-0 pb-6 lg:pb-0 px-0 lg:px-6 lg:border-r border-stone-200 h-full font-serif flex flex-col justify-between">
+            // ==================== 1. 三段式核心 3 栏区 (0-4) ====================
+            const { post: pHead, isPlaceholder: ipHead } = getPostOrPlaceholder(posts, 0);
+            document.getElementById('main-article-wrapper').innerHTML = (isFiltered && posts.length <= 0) ? '' : `
+                <div class="border-b lg:border-b-0 pb-6 lg:pb-0 px-0 lg:px-6 lg:border-r lg:border-l border-stone-200 h-full font-serif flex flex-col justify-between ${ipHead && !isFiltered ? 'opacity-60' : ''}">
                     <div>
-                        <span class="text-[10px] uppercase tracking-widest bg-stone-100 text-stone-600 px-2.5 py-1 rounded font-serif border border-stone-300 inline-block mb-3">${escapeHtml(mainArticle.category)}</span>
-                        <h2 class="font-serif text-3xl md:text-4xl font-extrabold mt-2 mb-6 text-stone-900 leading-tight cursor-pointer hover:text-stone-700 transition" onclick="viewArticle(${mainArticle.id})">${escapeHtml(mainArticle.title)}</h2>
-                        <div class="text-stone-700 font-serif space-y-4 cursor-pointer text-base leading-relaxed" onclick="viewArticle(${mainArticle.id})">
-                            ${escapeHtml(getPreviewText(mainArticle.body))}
-                        </div>
+                        <span class="text-[9px] uppercase tracking-widest bg-stone-100 text-stone-600 px-2.5 py-0.5 rounded font-serif border border-stone-200 inline-block mb-3">${escapeHtml(pHead.category)}</span>
+                        <h2 class="font-serif text-2xl md:text-3xl font-bold mt-2 mb-4 text-stone-900 leading-tight cursor-pointer hover:text-stone-700 transition" onclick="viewArticle('${pHead.id}')">${escapeHtml(pHead.title)}</h2>
+                        <p class="text-stone-700 font-serif text-sm leading-relaxed cursor-pointer" onclick="viewArticle('${pHead.id}')">${escapeHtml(getPreviewText(pHead.body))}</p>
                     </div>
-                    <button onclick="viewArticle(${mainArticle.id})" class="mt-6 text-xs font-semibold text-stone-900 hover:text-stone-700 underline tracking-wider uppercase font-title text-left">阅读全文 / READ FULL TEXT</button>
-                </div>
-            `;
+                    <button onclick="viewArticle('${pHead.id}')" class="mt-6 text-[10px] font-bold text-stone-900 hover:text-stone-700 underline tracking-wider uppercase font-title text-left">阅读全文 / READ FULL</button>
+                </div>`;
 
-            // 2. 动态分流排版：左专栏、右专栏及往期归档
-            const leftWrapper = document.getElementById('left-column-wrapper');
-            const rightWrapper = document.getElementById('right-column-wrapper');
-            const archiveWrapper = document.getElementById('archive-wrapper');
-
+            const leftWrapper = document.getElementById('left-column-wrapper'); 
             leftWrapper.innerHTML = '';
+            for(let i = 1; i < (isFiltered ? Math.min(posts.length, 3) : 3); i++) {
+                const { post: p, isPlaceholder: ip } = getPostOrPlaceholder(posts, i);
+                leftWrapper.innerHTML += `
+                    <div class="cursor-pointer hover:bg-stone-50/50 border-b border-stone-200 pb-4 mb-4 last:border-b-0 last:pb-0 transition-all duration-200 group ${ip && !isFiltered ? 'opacity-60' : ''}" onclick="viewArticle('${p.id}')">
+                        <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-1.5 inline-block font-medium">${escapeHtml(p.category)}</span>
+                        <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-1">${escapeHtml(p.title)}</h4>
+                        <p class="text-xs text-stone-500 leading-relaxed line-clamp-3 font-serif">${escapeHtml(getPreviewText(p.body))}</p>
+                    </div>`;
+            }
+
+            const rightWrapper = document.getElementById('right-column-wrapper'); 
             rightWrapper.innerHTML = '';
-            archiveWrapper.innerHTML = '';
+            for(let i = 3; i < (isFiltered ? Math.min(posts.length, 5) : 5); i++) {
+                const { post: p, isPlaceholder: ip } = getPostOrPlaceholder(posts, i);
+                rightWrapper.innerHTML += `
+                    <div class="cursor-pointer hover:bg-stone-50/50 border-b border-stone-200 pb-4 mb-4 last:border-b-0 last:pb-0 transition-all duration-200 group ${ip && !isFiltered ? 'opacity-60' : ''}" onclick="viewArticle('${p.id}')">
+                        <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-1.5 inline-block font-medium">${escapeHtml(p.category)}</span>
+                        <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-1">${escapeHtml(p.title)}</h4>
+                        <p class="text-xs text-stone-500 leading-relaxed line-clamp-3 font-serif">${escapeHtml(getPreviewText(p.body))}</p>
+                    </div>`;
+            }
 
-            const remaining = posts.slice(1);
-            let leftCount = 0;
-            let rightCount = 0;
-
-            remaining.forEach((post) => {
-                const preview = getPreviewText(post.body);
-                const cardHtml = `
-                    <div class="cursor-pointer hover:bg-stone-50/50 border-b border-stone-200 pb-5 mb-5 last:border-b-0 last:pb-0 transition-all duration-200 group" onclick="viewArticle(${post.id})">
-                        <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">${escapeHtml(post.category)}</span>
-                        <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-2">${escapeHtml(post.title)}</h4>
-                        <p class="text-xs text-stone-500 leading-relaxed line-clamp-3 font-serif">${escapeHtml(preview)}</p>
-                    </div>
-                `;
-
-                if (leftCount < 2) {
-                    leftWrapper.innerHTML += cardHtml;
-                    leftCount++;
-                } else if (rightCount < 2) {
-                    rightWrapper.innerHTML += cardHtml;
-                    rightCount++;
-                } else {
-                    const archiveHtml = `
-                        <div class="cursor-pointer hover:bg-stone-50/50 border-b border-stone-200 pb-6 mb-2 transition-all duration-200 group" onclick="viewArticle(${post.id})">
-                            <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">${escapeHtml(post.category)}</span>
-                            <h4 class="font-serif font-bold text-lg text-stone-900 group-hover:text-stone-700 transition mb-2">${escapeHtml(post.title)}</h4>
-                            <p class="text-xs text-stone-500 leading-relaxed line-clamp-3 font-serif">${escapeHtml(preview)}</p>
+            // ==================== 2. 中部对称 A 网格 (大左两小右) (5-7) ====================
+            const gridAContainer = document.getElementById('grid-a-container');
+            if (isFiltered && posts.length <= 5) { 
+                gridASection.classList.add('hidden'); 
+            } else {
+                gridASection.classList.remove('hidden');
+                const { post: pBig, isPlaceholder: ipBig } = getPostOrPlaceholder(posts, 5);
+                const { post: pSm1, isPlaceholder: ipSm1 } = getPostOrPlaceholder(posts, 6);
+                const { post: pSm2, isPlaceholder: ipSm2 } = getPostOrPlaceholder(posts, 7);
+                gridAContainer.innerHTML = `
+                    <div class="lg:col-span-8 flex flex-col justify-between pr-0 lg:pr-8 lg:border-r border-stone-200 ${ipBig && !isFiltered ? 'opacity-60' : ''}">
+                        <div class="cursor-pointer" onclick="viewArticle('${pBig.id}')">
+                            <span class="text-[9px] tracking-widest bg-stone-900 text-stone-100 px-2 py-0.5 rounded font-serif mb-3 inline-block font-semibold uppercase">FOCUS · 深度观察</span>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-stone-900 hover:text-stone-700 transition mb-4 leading-snug">${escapeHtml(pBig.title)}</h3>
+                            <p class="text-sm text-stone-600 leading-relaxed font-serif line-clamp-5">${escapeHtml(getPreviewText(pBig.body))}</p>
                         </div>
-                    `;
-                    archiveWrapper.innerHTML += archiveHtml;
-                }
-            });
+                        <button onclick="viewArticle('${pBig.id}')" class="mt-4 text-[10px] font-bold text-stone-900 hover:text-stone-700 underline tracking-wider uppercase font-title text-left">展开学术卷宗 / DISCLOSE</button>
+                    </div>
+                    <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
+                        <div class="cursor-pointer border-b border-stone-200 pb-5 group ${ipSm1 && !isFiltered ? 'opacity-60' : ''}" onclick="viewArticle('${pSm1.id}')">
+                            <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">${escapeHtml(pSm1.category)}</span>
+                            <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-1">${escapeHtml(pSm1.title)}</h4>
+                            <p class="text-xs text-stone-500 leading-relaxed line-clamp-2 font-serif">${escapeHtml(getPreviewText(pSm1.body))}</p>
+                        </div>
+                        <div class="cursor-pointer group ${ipSm2 && !isFiltered ? 'opacity-60' : ''}" onclick="viewArticle('${pSm2.id}')">
+                            <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">${escapeHtml(pSm2.category)}</span>
+                            <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-1">${escapeHtml(pSm2.title)}</h4>
+                            <p class="text-xs text-stone-500 leading-relaxed line-clamp-2 font-serif">${escapeHtml(getPreviewText(pSm2.body))}</p>
+                        </div>
+                    </div>`;
+            }
 
-            if (remaining.length <= 4) {
+            // ==================== 3. 中部对称 B 网格 (两小左大右) (8-10) ====================
+            const gridBContainer = document.getElementById('grid-b-container');
+            if (isFiltered && posts.length <= 8) { 
+                gridBSection.classList.add('hidden'); 
+            } else {
+                gridBSection.classList.remove('hidden');
+                const { post: pSm3, isPlaceholder: ipSm3 } = getPostOrPlaceholder(posts, 8);
+                const { post: pSm4, isPlaceholder: ipSm4 } = getPostOrPlaceholder(posts, 9);
+                const { post: pBig2, isPlaceholder: ipBig2 } = getPostOrPlaceholder(posts, 10);
+                gridBContainer.innerHTML = `
+                    <div class="lg:col-span-4 flex flex-col justify-between space-y-6 pr-0 lg:pr-8 lg:border-r border-stone-200">
+                        <div class="cursor-pointer border-b border-stone-200 pb-5 group ${ipSm3 && !isFiltered ? 'opacity-60' : ''}" onclick="viewArticle('${pSm3.id}')">
+                            <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">${escapeHtml(pSm3.category)}</span>
+                            <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-1">${escapeHtml(pSm3.title)}</h4>
+                            <p class="text-xs text-stone-500 leading-relaxed line-clamp-2 font-serif">${escapeHtml(getPreviewText(pSm3.body))}</p>
+                        </div>
+                        <div class="cursor-pointer group ${ipSm4 && !isFiltered ? 'opacity-60' : ''}" onclick="viewArticle('${pSm4.id}')">
+                            <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 mb-2 inline-block font-medium">${escapeHtml(pSm4.category)}</span>
+                            <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-1">${escapeHtml(pSm4.title)}</h4>
+                            <p class="text-xs text-stone-500 leading-relaxed line-clamp-2 font-serif">${escapeHtml(getPreviewText(pSm4.body))}</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-8 flex flex-col justify-between ${ipBig2 && !isFiltered ? 'opacity-60' : ''}">
+                        <div class="cursor-pointer" onclick="viewArticle('${pBig2.id}')">
+                            <span class="text-[9px] tracking-widest bg-stone-900 text-stone-100 px-2 py-0.5 rounded font-serif mb-3 inline-block font-semibold uppercase">PERSPECTIVE · 环球博览</span>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-stone-900 hover:text-stone-700 transition mb-4 leading-snug">${escapeHtml(pBig2.title)}</h3>
+                            <p class="text-sm text-stone-600 leading-relaxed font-serif line-clamp-5">${escapeHtml(getPreviewText(pBig2.body))}</p>
+                        </div>
+                        <button onclick="viewArticle('${pBig2.id}')" class="mt-4 text-[10px] font-bold text-stone-900 hover:text-stone-700 underline tracking-wider uppercase font-title text-left">展开学术卷宗 / DISCLOSE</button>
+                    </div>`;
+            }
+
+            // ==================== 4. 往期粹编 (从第 11 篇索引及以后开始) ====================
+            const archiveWrapper = document.getElementById('archive-wrapper');
+            const archivePaginationContainer = document.getElementById('archive-pagination');
+            archiveWrapper.innerHTML = '';
+            archivePaginationContainer.innerHTML = '';
+
+            const archiveItems = posts.slice(11);
+
+            if (archiveItems.length === 0) {
                 archiveSection.classList.add('hidden');
             } else {
                 archiveSection.classList.remove('hidden');
+
+                // 计算总页数
+                const totalPages = Math.ceil(archiveItems.length / ARCHIVE_PAGE_SIZE);
+                // 安全溢出边界限制
+                if (archiveCurrentPage > totalPages) archiveCurrentPage = totalPages;
+                if (archiveCurrentPage < 1) archiveCurrentPage = 1;
+
+                // 提炼当前页条目
+                const startIndex = (archiveCurrentPage - 1) * ARCHIVE_PAGE_SIZE;
+                const endIndex = startIndex + ARCHIVE_PAGE_SIZE;
+                const paginatedItems = archiveItems.slice(startIndex, endIndex);
+
+                // 循环渲染轻盈微黄边框卡片
+                paginatedItems.forEach((p) => {
+                    const originalIndex = posts.indexOf(p);
+                    archiveWrapper.innerHTML += `
+                        <div class="cursor-pointer hover:bg-stone-50/50 border border-stone-200 bg-stone-50/30 p-5 rounded transition-all duration-200 group flex flex-col justify-between h-52 transition-transform duration-150 hover:-translate-y-0.5" onclick="viewArticle('${p.id}')">
+                            <div>
+                                <div class="flex items-center justify-between border-b border-stone-200 pb-2 mb-3">
+                                    <span class="text-[9px] uppercase tracking-widest bg-stone-100 px-2 py-0.5 text-stone-500 rounded border border-stone-200 font-medium">${escapeHtml(p.category)}</span>
+                                    <span class="text-[9px] text-stone-400 font-title font-bold">EDITION #${originalIndex + 1}</span>
+                                </div>
+                                <h4 class="font-serif font-bold text-sm text-stone-900 group-hover:text-stone-700 transition mb-2 line-clamp-2">${escapeHtml(p.title)}</h4>
+                                <p class="text-xs text-stone-500 leading-relaxed line-clamp-3 font-serif">${escapeHtml(getPreviewText(p.body))}</p>
+                            </div>
+                            <span class="text-[10px] text-stone-400 mt-3 font-sans group-hover:text-stone-700 transition">点击阅读 →</span>
+                        </div>
+                    `;
+                });
+
+                // 渲染复古精细翻页条
+                if (totalPages > 1) {
+                    let pagHtml = '';
+
+                    // 上一页按钮
+                    if (archiveCurrentPage === 1) {
+                        pagHtml += `<button disabled class="border border-stone-200 text-stone-300 px-3 py-1 text-xs rounded cursor-not-allowed font-serif">上一页</button>`;
+                    } else {
+                        pagHtml += `<button onclick="changeArchivePage(${archiveCurrentPage - 1})" class="border border-stone-300 text-stone-700 bg-transparent hover:bg-stone-100 px-3 py-1 text-xs rounded transition font-serif">上一页</button>`;
+                    }
+
+                    // 数字页码按钮
+                    for (let pageIdx = 1; pageIdx <= totalPages; pageIdx++) {
+                        if (pageIdx === archiveCurrentPage) {
+                            pagHtml += `<button class="border border-stone-950 text-stone-100 bg-stone-900 px-3 py-1 text-xs rounded font-serif shadow-sm">${pageIdx}</button>`;
+                        } else {
+                            pagHtml += `<button onclick="changeArchivePage(${pageIdx})" class="border border-stone-300 text-stone-700 bg-transparent hover:bg-stone-100 px-3 py-1 text-xs rounded transition font-serif">${pageIdx}</button>`;
+                        }
+                    }
+
+                    // 下一页按钮
+                    if (archiveCurrentPage === totalPages) {
+                        pagHtml += `<button disabled class="border border-stone-200 text-stone-300 px-3 py-1 text-xs rounded cursor-not-allowed font-serif">下一页</button>`;
+                    } else {
+                        pagHtml += `<button onclick="changeArchivePage(${archiveCurrentPage + 1})" class="border border-stone-300 text-stone-700 bg-transparent hover:bg-stone-100 px-3 py-1 text-xs rounded transition font-serif">下一页</button>`;
+                    }
+
+                    archivePaginationContainer.innerHTML = pagHtml;
+                }
             }
         }
 
-        // 打开沉浸式阅读视窗
+        // 翻页执行逻辑
+        function changeArchivePage(newPage) {
+            archiveCurrentPage = newPage;
+            // 回弹至往期粹编锚点，增强阅读顺畅性
+            document.getElementById('archive-section').scrollIntoView({ behavior: 'smooth' });
+            applyFiltering();
+        }
+
         function viewArticle(id) {
             stopTTS();
-            const post = RAW_POSTS.find(p => p.id === id);
+            let post = RAW_POSTS.find(p => String(p.id) === String(id)) || AD_TEMPLATES.find(p => String(p.id) === String(id));
             if (!post) return;
 
             const modal = document.getElementById('article-modal');
@@ -533,11 +772,11 @@
             modalCategory.innerText = post.category;
             modalTitle.innerText = post.title;
 
-            // 1. Marked.js 解析 Markdown
+            // Marked.js 解析 Markdown
             let htmlContent = marked.parse(post.body);
             modalContent.innerHTML = htmlContent;
 
-            // 2. 捕获并拦截 Markdown 中的 Mermaid 模块并进行节点变换
+            // 捕获并拦截 Markdown 中的 Mermaid 模块并进行节点变换
             const codeBlocks = modalContent.querySelectorAll('pre code.language-mermaid');
             codeBlocks.forEach((block, index) => {
                 const rawDiagram = block.textContent;
@@ -548,7 +787,7 @@
                 block.parentElement.replaceWith(diagramDiv);
             });
 
-            // 3. 驱动 Mermaid 渲染
+            // 驱动 Mermaid 渲染
             try {
                 mermaid.run();
             } catch (e) {
@@ -561,15 +800,12 @@
 
         function closeModal() {
             stopTTS();
-            const modal = document.getElementById('article-modal');
-            modal.classList.add('hidden');
+            document.getElementById('article-modal').classList.add('hidden');
             document.body.style.overflow = ''; 
         }
 
         function changeFontSize(delta) {
-            baseFontSize += delta;
-            if (baseFontSize < 12) baseFontSize = 12;
-            if (baseFontSize > 28) baseFontSize = 28;
+            baseFontSize = Math.max(12, Math.min(28, baseFontSize + delta));
             const modalContent = document.getElementById('modal-content');
             modalContent.style.fontSize = `${baseFontSize}px`;
             modalContent.style.lineHeight = `${baseFontSize * 1.75}px`;
@@ -577,109 +813,67 @@
 
         // AI 雅音伴读核心语音引擎
         function toggleTTS() {
-            if (!('speechSynthesis' in window)) {
-                alert("您当前的设备暂不支持学术级语音伴读。建议使用 Edge 浏览器体验高保真自然人声。");
-                return;
+            if (!('speechSynthesis' in window)) { 
+                alert("您的设备暂不支持语音伴读。建议首选 Microsoft Edge 浏览器。"); 
+                return; 
             }
-
-            const playIcon = document.getElementById('tts-play-icon');
-            const pauseIcon = document.getElementById('tts-pause-icon');
-            const statusEl = document.getElementById('tts-status');
-
             if (isPlayingTTS) {
-                window.speechSynthesis.pause();
+                window.speechSynthesis.pause(); 
                 isPlayingTTS = false;
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-                statusEl.innerText = "伴读已暂停";
+                document.getElementById('tts-play-icon').classList.remove('hidden'); 
+                document.getElementById('tts-pause-icon').classList.add('hidden');
+                document.getElementById('tts-status').innerText = "伴读已暂停";
             } else {
                 if (window.speechSynthesis.paused && currentUtterance) {
-                    window.speechSynthesis.resume();
+                    window.speechSynthesis.resume(); 
                     isPlayingTTS = true;
-                    playIcon.classList.add('hidden');
-                    pauseIcon.classList.remove('hidden');
-                    statusEl.innerText = "正在雅音伴读中...";
-                } else {
-                    startTTS();
+                    document.getElementById('tts-play-icon').classList.add('hidden'); 
+                    document.getElementById('tts-pause-icon').classList.remove('hidden');
+                    document.getElementById('tts-status').innerText = "正在雅音伴读中...";
+                } else { 
+                    startTTS(); 
                 }
             }
         }
 
         function startTTS() {
             window.speechSynthesis.cancel();
-
-            const modalTitle = document.getElementById('modal-title').innerText;
-            const modalContent = document.getElementById('modal-content');
-            let rawText = modalContent.innerText || modalContent.textContent;
-            rawText = rawText.replace(/\s+/g, ' ').trim();
-            const fullNarrative = `标题：${modalTitle}。正文：${rawText}`;
-
+            const rawText = document.getElementById('modal-content').innerText.replace(/\s+/g, ' ').trim();
             if (!rawText) return;
 
-            currentUtterance = new SpeechSynthesisUtterance(fullNarrative);
-            const rateSelect = document.getElementById('tts-rate');
-            currentUtterance.rate = parseFloat(rateSelect.value) || 1.0;
-
+            currentUtterance = new SpeechSynthesisUtterance(`标题：${document.getElementById('modal-title').innerText}。正文：${rawText}`);
             const voices = window.speechSynthesis.getVoices();
-            // 强力捕捉高品质神经网络语音
-            let selectedVoice = voices.find(v => v.lang.includes('zh') && (
-                v.name.includes('Natural') || 
-                v.name.includes('Xiaoxiao') || 
-                v.name.includes('Google') || 
-                v.name.includes('Siri') || 
-                v.name.includes('Tingting')
-            ));
+            // 匹配最优自然人声
+            currentUtterance.voice = voices.find(v => v.lang.includes('zh') && (v.name.includes('Natural') || v.name.includes('Xiaoxiao') || v.name.includes('Tingting'))) || voices.find(v => v.lang.includes('zh'));
+            currentUtterance.onend = currentUtterance.onerror = resetTTSUI;
             
-            if (!selectedVoice) {
-                selectedVoice = voices.find(v => v.lang.includes('zh') || v.lang.includes('ZH'));
-            }
-            if (selectedVoice) {
-                currentUtterance.voice = selectedVoice;
-            }
-
-            currentUtterance.onend = () => { resetTTSUI(); };
-            currentUtterance.onerror = () => { resetTTSUI(); };
-
             window.speechSynthesis.speak(currentUtterance);
-            
             isPlayingTTS = true;
-            document.getElementById('tts-play-icon').classList.add('hidden');
+            document.getElementById('tts-play-icon').classList.add('hidden'); 
             document.getElementById('tts-pause-icon').classList.remove('hidden');
             document.getElementById('tts-status').innerText = "正在雅音伴读中...";
         }
 
-        function stopTTS() {
+        function stopTTS() { 
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
+                window.speechSynthesis.cancel(); 
             }
-            resetTTSUI();
+            resetTTSUI(); 
         }
-
-        function updateTTSRate() {
-            if (isPlayingTTS) {
-                startTTS();
-            }
-        }
-
+        
         function resetTTSUI() {
-            isPlayingTTS = false;
+            isPlayingTTS = false; 
             currentUtterance = null;
-            const playIcon = document.getElementById('tts-play-icon');
-            const pauseIcon = document.getElementById('tts-pause-icon');
-            const statusEl = document.getElementById('tts-status');
-            if (playIcon && pauseIcon && statusEl) {
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-                statusEl.innerText = "点击播放，开启沉浸式听报体验（首推 Microsoft Edge 浏览器）";
-            }
+            document.getElementById('tts-play-icon').classList.remove('hidden'); 
+            document.getElementById('tts-pause-icon').classList.add('hidden');
+            document.getElementById('tts-status').innerText = "点击播放，开启沉浸式听报体验";
         }
 
         if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = () => {
-                window.speechSynthesis.getVoices();
-            };
+            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
         }
 
+        // 窗口加载与鉴权控制
         window.onload = function() {
             if (safeGetStorage('yushan_authenticated_2026') === 'true') {
                 grantAccess();
